@@ -1,0 +1,37 @@
+{% extends 'grumblr/base1.html' %}
+{% block title %}Grumblr: Comfirm Email Complete{% endblock %}
+{% load static %}
+{% block hello %}{% endblock %}
+{% block quickpost %}{% endblock %}
+{% block userProfile %}{% endblock %}
+{% block showUser %}{% endblock %}
+{% block category %}{% endblock %}
+{% block author %}{% endblock %}
+{% block allPost %}{% endblock %}
+{% block editForm %}
+    <div class="row">
+    <div class="col-md-3"><p>&nbsp;</p></div>
+    <div class="col-md-6 w3-animate-right">
+        <p >&nbsp;</p>
+    <div class="w3-card-4"></div>
+
+<div class="w3-container w3-pale-blue">
+    <p>&nbsp;</p>
+  <p>Dear User:</p>
+    <p>Your are all set. You may go ahead and <a href="{% url 'login' %}"><button class="btn-info">sign in</button></a> now.</p>
+    <p>Enjoy our great grumblr and start to share your feelings here!</p>
+    <p>Have a great day! Love ya~</p><br>
+</div>
+
+<footer class="w3-container w3-blue">
+  <h5>From: Grumblr Team</h5>
+</footer>
+</div>
+    </div>
+    <div class="col-md-3">
+        <h1>&nbsp;</h1>
+    </div>
+</div>
+{% endblock %}
+{% block categoryPost %}{% endblock %}
+{% block followerStream %}{% endblock %}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    {%  load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'grumblr/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- W3CSS -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+
+      <!--Self Defined CSS-->
+    <link href="{% static 'grumblr/SelfDefine.css' %}" rel="stylesheet">
+
+    <!--Font Library-->
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+</head>
+<body background="{% static 'grumblr/image/bg2.png' %}" >
+<!--Header Design-->
+{% block header %}
+    <div class="w3-animate-top">
+        <div class="w3-container w3-cell">
+            <form method="get" action="{% url 'home' %}">
+                <button class="w3-btn w3-round-xlarge headerText">GRUMBLR</button>
+            </form>
+        </div>
+    </div>
+<p class="nbsp5">&nbsp;</p>
+{% endblock %}
+
+{% block login %}
+    <div class="w3-cell-row">
+                <div class="w3-container w3-cell w3-animate-right">
+                    <p>&nbsp;</p><br>
+                    <p>&nbsp;</p><br>
+                    <h1>&nbsp;&nbsp;For New People</h1>
+                    <a  href="{% url 'register' %}">&nbsp;&nbsp;Join Us Today to Enjoy Our Great Grumblr!</a><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a  class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register Now!</a>
+                </div>
+
+                <div class="w3-container w3-cell w3-animate-right ">
+                <p>&nbsp;</p><br>
+                <div class="w3-container w3-card-4 w3-light-blue">
+                    <form method="post" action="{% url 'login' %}">
+                    <!---error message--->
+                        {% if form.errors %}
+                        <h5 class="alert-danger">
+                            Incorrect user name and password.
+                        </h5>
+                        {% endif %}
+                         <p class="w3-text">&nbsp;</p>
+                        <h2 class="w3-text">Login</h2>
+                        <h5>Login to enjoy the full functions</h5>
+                        {% csrf_token %}
+                        <p>
+                            <label for = "username" class="w3-text"><b>UserName</b></label>
+                            <input class="w3-input w3-border" name="username" id = "username" maxlength="30" type="text" /></p>
+                        <p>
+                            <label for = "password" class="w3-text"><b>Password</b></label>
+                            <input class="w3-input w3-border" name="password" id = "password" maxlength="30" type="password"></p>
+
+                        <p>
+                            <button class="btn btn-info" type="submit">Log In</button>
+                        </p>
+
+                            <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                    <a href="{% url 'reset_password' %}"><button class="btn btn-warning">Forget Password?</button></a>
+                    <p class="w3-text">&nbsp;</p>
+                </div>
+                </div>
+            </div>
+{% endblock %}
+
+{% block register %}
+    <!--Register Form-->
+<div class="row">
+    <div class="col-md-4"><p>&nbsp;</p></div>
+
+    <div class="col-md-4 w3-animate-right">
+
+    <form class="w3-container w3-card-4 w3-light-blue" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <!---error message--->
+        {% for error in form.non_field_errors %}
+        <h5 class="alert-danger">
+        {{ error }}
+        </h5>
+        {% endfor %}
+        {% for field in form %}
+          {% if field.errors %}
+            {% for error in field.errors %}
+                <h5 class="alert-danger">
+                {{ field.name }}: {{ error }}
+                </h5>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+        <h2 class="w3-text">Register</h2>
+        <p>
+            <label for = "username" class="w3-text"><b>UserName</b></label>
+            <input class="w3-input w3-border" name="username" id = "username" maxlength="30" type="text" /></p>
+        <p>
+            <label for = "password1" class="w3-text"><b>Password</b></label>
+
+            <input class="w3-input w3-border" name="password1" id = "password1" maxlength="30" type="password"></p>
+        <p>
+            <label for = "password2" class="w3-text"><b>Confirm Password</b></label>
+            <input class="w3-input w3-border" name="password2" id = "password2" maxlength="30" type="password"></p>
+        <p>
+            <label for = "email" class="w3-text"><b>Email</b></label>
+            <input class="w3-input w3-border" name="email" id = "email" maxlength="100" type="text" /></p>
+        <p>
+            <label for = "firstName" class="w3-text"><b>FirstName</b></label>
+            <input class="w3-input w3-border" name="firstName" id = "firstName" maxlength="30" type="text"></p>
+        <p>
+            <label for = "lastName" class="w3-text"><b>LastName</b></label>
+            <input class="w3-input w3-border" name="lastName" id = "lastName" maxlength="30" type="text"></p>
+            <button class="btn btn-info">Create New Account</button><br>
+    <input type="hidden" name="next" value="{{ next }}" /><br>
+    </form>
+    </div>
+
+    <div class="col-md-4">
+        <h1>&nbsp;</h1>
+    </div>
+</div>
+{% endblock %}

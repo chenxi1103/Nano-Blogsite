@@ -1,0 +1,93 @@
+body{
+    background-color: #9EE0E0; !important;
+}
+
+.w3-lobster {
+    font-family: "Lobster", serif;
+}
+.round_icon{
+    width: 70px;
+    height: 70px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.roundFix{
+    width: 90%;
+    height: 90%;
+}
+.top3{
+    width: 175px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.jumbopic{
+    align-items: center;
+    justify-content: center;
+}
+
+.jumbotron_bg1{
+    background: url("{% static 'grumblr/image/newbg.jpg' %}");
+}
+.jumbotron_bg2{
+    background: url("{% static 'grumblr/image/bg3.jpg' %}");
+}
+.categoryText{
+
+}
+.headerText{
+    font-size:36px;
+    font-weight: bold;
+}
+.buttonText{
+    font-size: 15pt
+}
+.jumbText{
+    text-align: center;
+    font-size: 56pt;
+}
+.textCenter{
+    text-align: center;
+}
+.grumblrBlock{
+    width:100%;
+    background-color: #BBF0FE;
+}
+.nbsp6{
+    font-size: 6pt;
+}
+.nbsp3{
+    font-size: 3pt;
+}
+.nbsp5{
+    font-size: 5pt;
+}
+.nbsp4{
+    font-size: 4pt;
+}
+.tableText{
+    text-align: center;
+    font-size: 10pt;
+}
+.center48{
+    text-align: center;
+    font-size: 48pt;
+}
+.centerBold{
+    text-align: center;
+    font-weight: bold;
+}
+.errorText{
+    color: red;
+}
+
+.changeInput{
+    text-align: center
+}

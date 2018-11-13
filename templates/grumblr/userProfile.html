@@ -1,0 +1,25 @@
+{% extends 'grumblr/base1.html' %}
+{% block title %}Grumblr: User Profile{% endblock %}
+{% load static %}
+{% block hello %}
+    <div class="w3-animate-fading jumbotron w3-pale-blue jumbopic">
+        <h1 class="w3-lobster text-center">Welcome {{ currUser.user.first_name }} :)</h1>
+        <div class="row">
+          <div class="col-md-6">&nbsp;</div>
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">&nbsp;</div>
+        <div class="col-md-4">
+            <p><a class="btn btn-primary btn-lg" href="{% url 'editProfile' %}" role="button">Edit Your Profile</a></p>
+        </div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+    </div>
+{% endblock %}
+{% block category %}{% endblock %}
+{% block editForm %}{% endblock %}
+{% block author %}{% endblock %}
+{% block allPost %}{% endblock %}
+{% block categoryPost %}{% endblock %}
+{% block followerStream %}{% endblock %}

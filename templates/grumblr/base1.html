@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {%  load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'grumblr/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- W3CSS -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+
+      <!--Self Defined CSS-->
+    <link href="{% static 'grumblr/SelfDefine.css' %}" rel="stylesheet">
+
+    <!--Font Library-->
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+</head>
+<body background="{% static 'grumblr/image/newbg.jpg' %}">
+
+<!--Navigation Bar Design-->
+{% block navBar %}
+    <div class="w3-animate-top">
+        <div class="w3-container w3-cell">
+            <form method="get" action="{% url 'home' %}">
+                <button class="w3-btn w3-round-xlarge headerText">GRUMBLR</button>
+            </form>
+        </div>
+        <div class="w3-lobster w3-container w3-cell w3-display-topright">
+            <div class="w3-bar w3-padding w3-light-blue">
+                <a  href="{% url 'home' %}" class="w3-bar-item w3-button">Home</a>
+                <a  href="{% url 'allPost' %}" class="w3-bar-item w3-button">Global Stream</a>
+                <a  href="{% url 'followStream' %}" class="w3-bar-item w3-button">Followers Stream</a>
+                <a  href="{% url 'logout' %}" class="w3-bar-item w3-button">Logout</a>
+                <a  href="{% url 'userProfile' %}" class="w3-bar-item w3-button">My Account</a>
+            </div>
+        </div>
+    </div>
+<p class="nbsp5">&nbsp;</p>
+{% endblock %}
+
+<!--"Hello Grumblr" Title-->
+{% block hello %}
+<div class="jumbopic w3-animate-zoom jumbotron w3-pale-blue">
+    <h1 class="jumbText w3-lobster text-center" >Hello Grumblr :)</h1>
+    <h4 class="w3-lobster textCenter text-center">The Most Free Zone for U to Share Your Fantasies</h4>
+    <div class="row">
+        <div class="col-md-5">&nbsp;</div>
+    <div class="col-md-4">
+        <p><a class="btn btn-primary btn-lg" href="{% url 'allPost' %}" role="button">Check All Posts!</a></p>
+    </div>
+        <div class="col-md-3">&nbsp;</div>
+    </div>
+</div>
+{% endblock %}
+
+<!----Quick Post---->
+{% block quickpost %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+            <p class="nbsp6">&nbsp;</p>
+            <ul class="media-list">
+                <li class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading w3-lobster">Quick Post Here</h4>
+                            <div contenteditable="true">
+                                <textarea  id="postContent" maxlength="42" autofocus placeholder="Anything wants to share?" cols="85" rows="5" name = "Post"></textarea>
+                            </div>
+                           <label for = "Category" class="w3-text"></label>
+                            <select name="Category" id="Category">
+                                <option class="w3-button w3-card-4 w3-round-large" value="General"> General</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value = "Programmer"> Programmer Zone</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value = "Gamer"> Gamer</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value="Delicacy"> Delicacy</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value = "Pets"> Pets</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value = "Sports"> Sports</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value="Friends"> Making Friends</option>
+                                <option class="w3-bar-item w3-button w3-card-4" value = "Movies"> Movies</option>
+                            </select>
+                    <button id="qpost" class="w3-button w3-card-4 w3-round-large" type="submit"> Post</button>
+            </div>
+                </li>
+            </ul>
+                <p class="nbsp3">&nbsp;</p>
+        </div>
+        </div>
+{% endblock %}
+
+<!----Show User's Info Briefly---->
+{% block showUser %}
+        <div class="col-md-3">
+            <div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+            <div class="row">
+                <div class="col-md-4">
+                    <p>&nbsp;</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="nbsp4">&nbsp;</p>
+                     <img src="{% url 'photo' id=currUser.id %}" class="round_icon imgCenter" alt="head">
+                </div>
+                <div class="col-md-4">
+                   <p>&nbsp;</p>
+                </div>
+            </div>
+
+                <div class="row">
+                    <h3 class="w3-lobster text-center">{{ currUser.user.first_name }}&nbsp;{{ currUser.user.last_name }}</h3>
+                    <div class="row">
+                        <div class="col-md-1"><p>&nbsp;</p></div>
+                        <div class="col-md-7">
+                            <table class="table tableText text-center">
+                                <tr>
+                                    <th>Posts: </th>
+                                    <th>Following: </th>
+                                    <th>Followers: </th>
+                                </tr>
+                                <tr>
+                                    <td>{{ numPosts }}</td>
+                                    <td>{{ numFriends }}</td>
+                                    <td>{{ numFollower }}</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<p>&nbsp;</p>
+{% endblock %}
+
+{% block category %}
+    <!--"Check By Category" Title-->
+<div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+    <h1 class="w3-lobster center48 text-center">Check By Categories</h1>
+    <h4 class="w3-lobster textCenter text-center">You Can Find What You Like Easily By Checking Posts By Categories!</h4>
+</div>
+<!-- 8 Categories Starts Here -->
+<div class="content ">
+    <div class="categories">
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='General' %}">
+                            <img src="{% static 'grumblr/image/general.jpg' %}" alt="General Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">General</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Programmer' %}">
+                            <img src="{% static 'grumblr/image/programming.jpg' %}" alt="Programming Post">
+                        </a>
+                    </div>
+                        <h5 class="centerBold">Programmer Zone</h5>
+                    </div>
+                </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Gamer' %}">
+                            <img src="{% static 'grumblr/image/gamer.jpg' %}" alt="Gamer Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Gamer</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Delicacy' %}">
+                            <img src="{%  static 'grumblr/image/delicacy.jpg' %}" alt="Delicacy Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Delicacy</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Pets' %}">
+                            <img src="{%  static 'grumblr/image/pets.jpg' %}" alt="Pets Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Pets</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Sports' %}">
+                            <img src="{%  static 'grumblr/image/sports.jpg' %}" alt="Sports Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Sports</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Friends' %}">
+                            <img src="{% static 'grumblr/image/friends.jpg' %}" alt="Friends Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Making Friends</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3 focus-grid">
+                <div class="thumbnail">
+                    <div class="w3-hover-opacity">
+                        <a href="{% url 'checkByCategory' category='Movies' %}">
+                            <img src="{% static 'grumblr/image/movie.jpg' %}" alt="Movies Posts">
+                        </a>
+                    </div>
+                    <h5 class="centerBold">Movies</h5>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+
+<!--------------------------------------userProfile start here------------------------------------------>
+{% block userProfile %}
+    <!-- User Profile-->
+    <div class="row">
+        <div class="col-md-4">
+                <div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+                <p>&nbsp;</p>
+                <h1 class="w3-lobster">My Profile</h1>
+                    <p>&nbsp;</p>
+                    <table class="w3-table">
+                        <tr>
+                            <th>UserName: </th>
+                            <td>{{ currUser.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th >FirstName:</th>
+                            <td>{{ currUser.user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>LastName:</th>
+                            <td>{{ currUser.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Age:</th>
+                            <td>{{ currUser.Age }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tel:</th>
+                            <td>{{ currUser.tel }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ currUser.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Short BIO:</th>
+                            <td>{{ currUser.whatsUp }}</td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'editProfile' %}" role="button">Edit Your Profile</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>&nbsp;</p>
+                </div>
+    <!----Friends list---->
+        <div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+            <p>&nbsp;</p>
+            <ul class="media-list">
+                <li class="media">
+                    <div class="media-body">
+                        <h1 class="media-heading w3-lobster">Your Friends<br>&nbsp;</h1>
+                        {% for friend in Friends %}
+                        <table>
+                        <tr>
+                            <td><img src="{% url 'photo' id=friend.id %}" class="round_icon imgCenter" alt="{{ friend.user.first_name }}{{ friend.user.last_name }}"></td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
+                            <td><h4 class="w3-lobster"> {{ friend.user.first_name }} {{ friend.user.last_name }}</h4>
+                                <a href="{% url 'followUser' operation='remove' id=friend.id %}">
+                                    <button type="button" class="btn btn-danger">unfollow</button></a></td>
+                        </tr>
+                        </table>
+                        {% endfor %}
+
+            </div>
+                </li>
+            </ul>
+                <p>&nbsp;</p>
+        </div>
+        </div>
+
+    <p>&nbsp;</p>
+            <div class="col-md-8 w3-pale-blue">
+                <div class="w3-cell-row w3-panel w3-animate-left">
+                    <h1 class="w3-lobster">Recent Posts</h1>
+                         <ol id = "userPost">
+                        </ol>
+                         {%  load static %}
+                <script type="text/javascript" src={% static 'grumblr/js/jquery-3.3.1.min.js' %}></script>
+                <script type="text/javascript" src={% static 'grumblr/js/userPost.js' %}></script>
+                </div>
+            </div>
+{% endblock %}
+
+<!--------------------------------------editProfile start here------------------------------------------>
+{% block editForm %}
+    <div class="row">
+    <div class="col-md-3"><p>&nbsp;</p></div>
+
+    <div class="col-md-6 w3-animate-right">
+        <p >&nbsp;</p>
+<div class="w3-container w3-card-4 w3-light-blue">
+    <form enctype="multipart/form-data" method="post" action="{% url 'editProfile' %}">
+        {% csrf_token %}
+
+        {% for field in form %}
+          {% if field.errors %}
+            {% for error in field.errors %}
+                <h5 class="alert-danger">
+                {{ field.name }}: {{ error }}
+                </h5>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+        <h2  class="w3-text">Edit Your Profile</h2>
+        <p>Let's see what you wanna change :)</p>
+
+        <p>
+            <label for = "firstName" class="w3-text"><b>FirstName</b></label>
+            <input class="w3-input w3-border" name="firstName" id = "firstName" type="text" maxlength="30" value = {{ currUser.user.first_name }}></p>
+        <p>
+            <label for = "lastName" class="w3-text"><b>LastName</b></label>
+            <input class="w3-input w3-border" name="lastName" id = "lastName" type="text" maxlength="30" value = {{ currUser.user.last_name }} ></p>
+        <p>
+            <label for = "Age" class="w3-text"><b>Age</b></label>
+            <input class="w3-input w3-border" name="Age" id = "Age" type="text" maxlength="3" value = {{ currUser.Age }}></p>
+        <p>
+            <label for = "tel" class="w3-text"><b>tel</b></label>
+            <input class="w3-input w3-border" name="tel" id = "tel" type="text" maxlength="11" value = {{ currUser.tel }}></p>
+        <p>
+            <label for = "whatsUp" class="w3-text"><b>Short BIO</b></label>
+            <input class="w3-input w3-border" name="whatsUp" id = "whatsUp" type="text" maxlength="420" value = {{ currUser.whatsUp }} ></p>
+        <p>
+            <label for = "photo" class="w3-text"><b>Profile Picture</b></label>
+            <input class="w3-input w3-border" name="photo" id = "photo" type="file" ></p>
+
+        <p>
+            <button class="w3-btn w3-blue">Save the Changes</button>
+        </p>
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <p class="w3-text"> Want to change Password? Click here:&nbsp;&nbsp;&nbsp;<a class="btn btn-info" href="{% url 'changePwd' %}" role="button">Change Password</a></p>
+</div>
+    </div>
+
+    <div class="col-md-3">
+        <h1>&nbsp;</h1>
+    </div>
+</div>
+{% endblock %}
+
+<!--------------------------------------checkAuthor start here------------------------------------------>
+{% block author %}
+    <div class="w3-cell-row w3-panel w3-animate-left w3-pale-blue">
+                <h1 class="w3-lobster text-center">Author's Profile &nbsp;</h1>
+                    <p>&nbsp;</p>
+                <p class="text-center alert-danger">{{ error }}</p>
+                    <div class="row">
+                        <div class="col-md-4">&nbsp;</div>
+                        <div class="col-md-4">
+                    <table class="w3-table">
+                        <tr>
+                            <th>UserName: </th>
+                            <td>{{ author.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>FirstName:</th>
+                            <td>{{ author.user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>LastName:</th>
+                            <td>{{ author.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Age:</th>
+                            <td>{{ author.Age }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tel:</th>
+                            <td>{{ author.tel }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ author.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Short BIO:</th>
+                            <td>{{ author.whatsUp }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                {% if currUser.id != author.user.id %}
+                                <a href="{% url 'followUser' operation='follow' id=author.id %}">
+                                            <button type="button" class="btn btn-info">follow</button>
+                                    {% else %}
+                                    <a href="{% url 'editProfile' %}">
+                                            <button type="button" class="btn btn-info">Edit Your Profile</button>
+                                {% endif %}
+                            </a></td>
+                        </tr>
+                    </table>
+
+                            </div>
+                    <p>&nbsp;</p>
+                        <div class="col-md-4">&nbsp;</div>
+                </div>
+        </div>
+{% endblock %}
+
+<!--------------------------------------allpost start here------------------------------------------>
+{% block allPost %}
+     <ol id = "allpost">
+     </ol>
+    {%  load static %}
+    <script type="text/javascript" src={% static 'grumblr/js/jquery-3.3.1.min.js' %}></script>
+    <script type="text/javascript" src={% static 'grumblr/js/grumblr.js' %}></script>
+{% endblock %}
+<!--------------------------------------category start here------------------------------------------>
+{% block categoryPost %}
+    <input type="hidden" id="cat" value={{ category }}>
+    <ol id="cateList">
+    </ol>
+    {%  load static %}
+    <script type="text/javascript" src={% static 'grumblr/js/jquery-3.3.1.min.js' %}></script>
+    <script type="text/javascript" src={% static 'grumblr/js/categories.js' %}></script>
+{% endblock %}
+
+<!----------------------Follower Stream Starts Here--------------------------->
+{% block followerStream %}
+    <ol id = "follower"></ol>
+    {%  load static %}
+    <script type="text/javascript" src={% static 'grumblr/js/jquery-3.3.1.min.js' %}></script>
+    <script type="text/javascript" src={% static 'grumblr/js/followerStream.js' %}></script>
+      <h5 class="alert-danger" >{{ error }}</h5>
+{% endblock %}
+
+{% block footer %}
+<!--footer starts here / Copy rights--->
+    <footer >
+        <p>&nbsp;</p>
+        <p class="text-center">&copy 2018 Chenxi Li. All Rights Reserved | Design by Chenxi Li | Contact information: <a href="chenxili@andrew.cmu.edu">chenxili@andrew.cmu.edu</a>.</p>
+    </footer>
+{% endblock %}
+</body>
+</html>
